@@ -1126,6 +1126,80 @@
       background: rgba(255,255,255,0.08);
     }
 
+    /* — Ticker financeiro — */
+    .ticker-bar {
+      display: flex;
+      align-items: center;
+      background: #0d1200;
+      border-bottom: 1px solid rgba(159,231,13,0.18);
+      padding: 0;
+      height: 36px;
+      overflow: hidden;
+    }
+    .ticker-label {
+      flex-shrink: 0;
+      background: var(--green);
+      color: var(--black);
+      font-size: 0.62rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 0 0.9rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .ticker-label::after {
+      content: '';
+      position: absolute;
+      right: -8px; top: 0;
+      width: 0; height: 0;
+      border-top: 36px solid var(--green);
+      border-right: 9px solid transparent;
+    }
+    .ticker-overflow {
+      overflow: hidden;
+      flex: 1;
+    }
+    .ticker-track {
+      display: inline-flex;
+      gap: 0;
+      animation: marquee-scroll 35s linear infinite;
+      white-space: nowrap;
+      padding-left: 1.5rem;
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0 1.2rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text);
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .ticker-sym {
+      color: rgba(232,232,232,0.55);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+    }
+    .ticker-price { font-weight: 800; }
+    .ticker-chg {
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .t-up   { color: #4ade80; }
+    .t-down { color: #f87171; }
+    .t-flat { color: var(--muted); }
+    .ticker-loading {
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding: 0 1.5rem;
+      letter-spacing: 1px;
+    }
+
     /* — Dólar na marquee — */
     #dolar-item, #dolar-item2 {
       color: #fff;
@@ -1198,23 +1272,33 @@
     </div>
   </section>
 
-  <!-- MARQUEE STRIP -->
+  <!-- MARQUEE STRIP — SERVIÇOS -->
   <div class="marquee-strip">
-    <div class="marquee-track" id="marquee-track">
+    <div class="marquee-track">
       <span>⚡ 200+ Mbps garantidos</span><span class="sep">·</span>
       <span>📡 Kit Starlink completo</span><span class="sep">·</span>
       <span>🛠 Instalação inclusa</span><span class="sep">·</span>
       <span>💬 Suporte 24h</span><span class="sep">·</span>
       <span>📍 Teresina e região</span><span class="sep">·</span>
       <span>🚀 Retirada no local</span><span class="sep">·</span>
-      <span id="dolar-item" style="display:none">💵 <span id="dolar-val">...</span></span><span class="sep" id="dolar-sep" style="display:none">·</span>
+      <span id="dolar-item" style="display:none">💵 <span id="dolar-val"></span></span><span class="sep" id="dolar-sep" style="display:none">·</span>
       <span>⚡ 200+ Mbps garantidos</span><span class="sep">·</span>
       <span>📡 Kit Starlink completo</span><span class="sep">·</span>
       <span>🛠 Instalação inclusa</span><span class="sep">·</span>
       <span>💬 Suporte 24h</span><span class="sep">·</span>
       <span>📍 Teresina e região</span><span class="sep">·</span>
       <span>🚀 Retirada no local</span><span class="sep">·</span>
-      <span id="dolar-item2" style="display:none">💵 <span id="dolar-val2">...</span></span><span class="sep" id="dolar-sep2" style="display:none">·</span>
+      <span id="dolar-item2" style="display:none">💵 <span id="dolar-val2"></span></span><span class="sep" id="dolar-sep2" style="display:none">·</span>
+    </div>
+  </div>
+
+  <!-- TICKER FINANCEIRO -->
+  <div class="ticker-bar">
+    <div class="ticker-label">AO VIVO</div>
+    <div class="ticker-overflow">
+      <div class="ticker-track" id="ticker-track">
+        <!-- populado via JS -->
+      </div>
     </div>
   </div>
 
@@ -1629,6 +1713,83 @@
       });
     }, { threshold: 0.5 });
     document.querySelector('.hero-stats') && statsObserver.observe(document.querySelector('.hero-stats'));
+
+    /* ── TICKER FINANCEIRO ── */
+    // Para habilitar TSLA, MXRF11 e outras: crie conta grátis em brapi.dev e cole o token aqui
+    const BRAPI_TOKEN = '';
+
+    function fmtBRL(v)    { return 'R$\u00A0'+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+    function fmtUSD(v)    { return 'US$\u00A0'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+    function fmtCrypto(v) {
+      if (v>=1e6)  return 'R$\u00A0'+(v/1e6).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'M';
+      if (v>=1000) return 'R$\u00A0'+(v/1000).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'k';
+      return fmtBRL(v);
+    }
+    function cls(c)   { return c>0?'t-up':c<0?'t-down':'t-flat'; }
+    function arrow(c) { return c>0?'▲':c<0?'▼':''; }
+
+    function brapiUrl(syms) {
+      const base = `https://brapi.dev/api/quote/${syms}`;
+      return BRAPI_TOKEN ? base+'?token='+BRAPI_TOKEN : base;
+    }
+
+    function buildTickerHTML(items) {
+      const half = items.map(i=>
+        `<span class="ticker-item">
+          <span class="ticker-sym">${i.sym}</span>
+          <span class="ticker-price">${i.price}</span>
+          <span class="ticker-chg ${i.cls}">${i.arrow}${i.chg}%</span>
+        </span>`
+      ).join('');
+      return half+half; // duplica para scroll infinito
+    }
+
+    async function fetchTickers() {
+      const track = document.getElementById('ticker-track');
+      if (!track) return;
+      try {
+        // Ações sempre disponíveis + extras com token
+        const stockGroups = BRAPI_TOKEN
+          ? ['VALE3,PETR4','MGLU3,BBAS3','TSLA,MXRF11']
+          : ['VALE3,PETR4','MGLU3'];
+
+        const [cgData, ...stockResults] = await Promise.all([
+          fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=brl&include_24hr_change=true')
+            .then(r=>r.json()).catch(()=>null),
+          ...stockGroups.map(g => fetch(brapiUrl(g)).then(r=>r.json()).catch(()=>({results:[]})))
+        ]);
+
+        const items = [];
+
+        // Ações
+        const allStocks = stockResults.flatMap(d=>d.results||[]);
+        allStocks.forEach(s => {
+          const c = s.regularMarketChangePercent||0;
+          items.push({
+            sym:   s.symbol,
+            price: s.currency==='USD' ? fmtUSD(s.regularMarketPrice) : fmtBRL(s.regularMarketPrice),
+            chg:   Math.abs(c).toFixed(2),
+            cls:   cls(c), arrow: arrow(c)
+          });
+        });
+
+        // Cripto via CoinGecko (sem CORS, sem key)
+        const coins = { bitcoin:'BTC', ethereum:'ETH', solana:'SOL' };
+        Object.entries(coins).forEach(([id,sym]) => {
+          const d = cgData?.[id];
+          if (!d) return;
+          const c = d.brl_24h_change||0;
+          items.push({ sym, price:fmtCrypto(d.brl), chg:Math.abs(c).toFixed(2), cls:cls(c), arrow:arrow(c) });
+        });
+
+        if (items.length) track.innerHTML = buildTickerHTML(items);
+      } catch(e) {
+        track.innerHTML = '<span class="ticker-loading">Cotações indisponíveis</span>';
+      }
+    }
+
+    fetchTickers();
+    setInterval(fetchTickers, 60_000);
 
     /* ── COTAÇÃO DÓLAR ── */
     let lastDolar = null;
