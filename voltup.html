@@ -1126,6 +1126,21 @@
       background: rgba(255,255,255,0.08);
     }
 
+    /* — Dólar na marquee — */
+    #dolar-item, #dolar-item2 {
+      color: #fff;
+      font-weight: 800;
+    }
+    #dolar-item .dolar-badge, #dolar-item2 .dolar-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-left: 2px;
+    }
+    .dolar-up   { color: #4ade80 !important; }
+    .dolar-down { color: #f87171 !important; }
+
     /* — Card hover lift mais suave — */
     .plan-card { transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), border-color 0.25s, box-shadow 0.25s; }
     .plan-card:hover { transform: translateY(-6px); }
@@ -1185,19 +1200,21 @@
 
   <!-- MARQUEE STRIP -->
   <div class="marquee-strip">
-    <div class="marquee-track">
+    <div class="marquee-track" id="marquee-track">
       <span>⚡ 200+ Mbps garantidos</span><span class="sep">·</span>
       <span>📡 Kit Starlink completo</span><span class="sep">·</span>
       <span>🛠 Instalação inclusa</span><span class="sep">·</span>
       <span>💬 Suporte 24h</span><span class="sep">·</span>
       <span>📍 Teresina e região</span><span class="sep">·</span>
       <span>🚀 Retirada no local</span><span class="sep">·</span>
+      <span id="dolar-item" style="display:none">💵 <span id="dolar-val">...</span></span><span class="sep" id="dolar-sep" style="display:none">·</span>
       <span>⚡ 200+ Mbps garantidos</span><span class="sep">·</span>
       <span>📡 Kit Starlink completo</span><span class="sep">·</span>
       <span>🛠 Instalação inclusa</span><span class="sep">·</span>
       <span>💬 Suporte 24h</span><span class="sep">·</span>
       <span>📍 Teresina e região</span><span class="sep">·</span>
       <span>🚀 Retirada no local</span><span class="sep">·</span>
+      <span id="dolar-item2" style="display:none">💵 <span id="dolar-val2">...</span></span><span class="sep" id="dolar-sep2" style="display:none">·</span>
     </div>
   </div>
 
@@ -1612,6 +1629,46 @@
       });
     }, { threshold: 0.5 });
     document.querySelector('.hero-stats') && statsObserver.observe(document.querySelector('.hero-stats'));
+
+    /* ── COTAÇÃO DÓLAR ── */
+    let lastDolar = null;
+
+    async function fetchDolar() {
+      try {
+        const res  = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL');
+        const data = await res.json();
+        const rate = parseFloat(data.USDBRL.bid);
+        const formatted = rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        // Determina direção (subiu/caiu)
+        let arrow = '';
+        let cls   = '';
+        if (lastDolar !== null) {
+          if (rate > lastDolar)      { arrow = ' ▲'; cls = 'dolar-up'; }
+          else if (rate < lastDolar) { arrow = ' ▼'; cls = 'dolar-down'; }
+        }
+        lastDolar = rate;
+
+        const html = `USD <strong>R$ ${formatted}</strong><span class="dolar-badge">${arrow}</span>`;
+
+        ['dolar-val','dolar-val2'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) { el.innerHTML = html; if (cls) el.className = cls; }
+        });
+
+        // Exibe os itens agora que temos dados
+        ['dolar-item','dolar-item2','dolar-sep','dolar-sep2'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.style.display = '';
+        });
+
+      } catch (e) {
+        // Em caso de erro mantém oculto silenciosamente
+      }
+    }
+
+    fetchDolar();
+    setInterval(fetchDolar, 60_000); // atualiza a cada 60s
 
     /* ── FORMULÁRIO CONTATO ── */
     function handleForm(e) {
