@@ -66,6 +66,14 @@
 
     nav ul a:hover { color: var(--green); }
 
+    /* nav divider entre serviços */
+    .nav-divider {
+      width: 1px; height: 16px;
+      background: rgba(255,255,255,0.12);
+      display: inline-block;
+      margin: 0 0.5rem;
+    }
+
     .nav-cta {
       background: var(--green);
       color: var(--black) !important;
@@ -1215,6 +1223,248 @@
     .dolar-up   { color: #4ade80 !important; }
     .dolar-down { color: #f87171 !important; }
 
+    /* ══ CARROS ELÉTRICOS ══ */
+    #carros-eletricos {
+      background: #080e1a;
+      position: relative;
+      overflow: hidden;
+    }
+    #carros-eletricos::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(0,180,255,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #carros-eletricos::after {
+      content: '';
+      position: absolute;
+      bottom: -150px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(159,231,13,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* separador visual entre seções */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(159,231,13,0.3), rgba(0,180,255,0.3), transparent);
+    }
+
+    /* badge novo */
+    .ev-new-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(0,180,255,0.12);
+      color: #38bdf8;
+      border: 1px solid rgba(0,180,255,0.25);
+      padding: 0.3rem 0.9rem;
+      border-radius: 99px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    /* grid de carros */
+    .ev-cars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .ev-car-card {
+      background: #0f1828;
+      border: 1px solid rgba(0,180,255,0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), border-color 0.25s, box-shadow 0.25s;
+    }
+    .ev-car-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0,180,255,0.3);
+      box-shadow: 0 8px 40px rgba(0,180,255,0.1);
+    }
+    .ev-car-card.ev-featured {
+      border-color: rgba(159,231,13,0.5);
+      background: linear-gradient(160deg, #0c1a08 0%, #0f1828 100%);
+      box-shadow: 0 0 0 1px rgba(159,231,13,0.1), 0 8px 48px rgba(159,231,13,0.1);
+    }
+    .ev-car-card.ev-featured:hover {
+      box-shadow: 0 0 0 1px rgba(159,231,13,0.25), 0 12px 60px rgba(159,231,13,0.18);
+    }
+    .ev-car-card.ev-featured::before {
+      content: 'MAIS PEDIDO';
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      background: var(--green);
+      color: var(--black);
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 0.25rem 0.7rem;
+      border-radius: 99px;
+    }
+
+    .ev-car-emoji {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      display: block;
+      line-height: 1;
+    }
+    .ev-car-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #38bdf8;
+      margin-bottom: 0.3rem;
+    }
+    .ev-car-card.ev-featured .ev-car-name { color: var(--green); }
+
+    .ev-car-model {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .ev-car-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.55;
+    }
+
+    .ev-car-specs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .ev-spec {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .ev-spec-val {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+    .ev-car-card.ev-featured .ev-spec-val { color: var(--green); }
+    .ev-spec-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+
+    .ev-car-price {
+      margin-bottom: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .ev-car-price .amount {
+      font-size: 2.2rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .ev-car-price .period {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .ev-car-features {
+      list-style: none;
+      margin-bottom: 1.8rem;
+    }
+    .ev-car-features li {
+      font-size: 0.84rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--text);
+    }
+    .ev-car-features li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 800;
+      font-size: 0.82rem;
+      flex-shrink: 0;
+    }
+
+    .ev-btn-outline {
+      display: block;
+      text-align: center;
+      padding: 0.85rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 1px solid rgba(0,180,255,0.25);
+      color: #38bdf8;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+    .ev-btn-outline:hover { border-color: #38bdf8; background: rgba(0,180,255,0.06); transform: translateY(-2px); }
+
+    .ev-btn-filled {
+      display: block;
+      text-align: center;
+      padding: 0.85rem;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-decoration: none;
+      background: linear-gradient(135deg, #9FE70D, #c8ff40);
+      color: var(--black);
+      box-shadow: 0 4px 20px rgba(159,231,13,0.3);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .ev-btn-filled:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(159,231,13,0.45); }
+
+    /* benefícios */
+    .ev-benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .ev-benefit {
+      background: #0f1828;
+      border: 1px solid rgba(0,180,255,0.08);
+      border-radius: 14px;
+      padding: 1.4rem 1.2rem;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .ev-benefit:hover { border-color: rgba(0,180,255,0.25); transform: translateY(-3px); }
+    .ev-benefit-icon { font-size: 1.8rem; margin-bottom: 0.6rem; display: block; }
+    .ev-benefit-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+    .ev-benefit-desc  { font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
+
+    /* cta final */
+    .ev-cta-box {
+      background: linear-gradient(135deg, #0c1a08, #0f1828);
+      border: 1px solid rgba(159,231,13,0.2);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 60px rgba(159,231,13,0.05);
+    }
+    .ev-cta-box h3 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900; margin-bottom: 0.8rem; letter-spacing: -0.5px; }
+    .ev-cta-box p  { color: var(--muted); margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .ev-cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
     /* — Card hover lift mais suave — */
     .plan-card { transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), border-color 0.25s, box-shadow 0.25s; }
     .plan-card:hover { transform: translateY(-6px); }
@@ -1226,8 +1476,8 @@
 
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#como-funciona" onclick="closeMobileMenu()">Como Funciona</a>
-    <a href="#planos" onclick="closeMobileMenu()">Planos</a>
+    <a href="#como-funciona" onclick="closeMobileMenu()">📡 Starlink</a>
+    <a href="#carros-eletricos" onclick="closeMobileMenu()">⚡ Carros Elétricos</a>
     <a href="#avaliacoes" onclick="closeMobileMenu()">Avaliações</a>
     <a href="#contato" onclick="closeMobileMenu()">Contato</a>
     <a href="https://wa.me/5586994056387" class="nav-cta">WhatsApp</a>
@@ -1237,8 +1487,9 @@
   <nav id="mainNav">
     <div class="logo">Volt<span>Up</span></div>
     <ul>
-      <li><a href="#como-funciona">Como Funciona</a></li>
-      <li><a href="#planos">Planos</a></li>
+      <li><a href="#como-funciona">Starlink</a></li>
+      <li><a href="#carros-eletricos">⚡ Carros Elétricos</a></li>
+      <li><span class="nav-divider"></span></li>
       <li><a href="#avaliacoes">Avaliações</a></li>
       <li><a href="#contato">Contato</a></li>
       <li><a href="https://wa.me/5586994056387" class="nav-cta">WhatsApp</a></li>
@@ -1518,10 +1769,144 @@
     </div>
   </section>
 
+  <!-- DIVISOR -->
+  <div class="section-divider"></div>
+
+  <!-- CARROS ELÉTRICOS -->
+  <section id="carros-eletricos">
+
+    <div class="ev-new-badge reveal">✦ NOVO SERVIÇO</div>
+    <h2 class="section-title reveal reveal-delay-1">Locação de <em>Carros Elétricos</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Mobilidade inteligente e sustentável. Alugue um elétrico por dia, semana ou mês — com entrega e retirada em Teresina.</p>
+
+    <!-- CARDS DE CARROS -->
+    <div class="ev-cars-grid">
+
+      <div class="ev-car-card reveal reveal-delay-1">
+        <span class="ev-car-emoji">🚗</span>
+        <p class="ev-car-name">Compacto</p>
+        <h3 class="ev-car-model">Elétrico City</h3>
+        <p class="ev-car-desc">Perfeito para o dia a dia urbano. Econômico, ágil e fácil de estacionar.</p>
+        <div class="ev-car-specs">
+          <div class="ev-spec"><span class="ev-spec-val">300km</span><span class="ev-spec-label">Autonomia</span></div>
+          <div class="ev-spec"><span class="ev-spec-val">5</span><span class="ev-spec-label">Lugares</span></div>
+          <div class="ev-spec"><span class="ev-spec-val">Auto</span><span class="ev-spec-label">Câmbio</span></div>
+        </div>
+        <div class="ev-car-price">
+          <span class="amount">R$ 250</span>
+          <span class="period">/dia</span>
+        </div>
+        <ul class="ev-car-features">
+          <li>Carga completa inclusa</li>
+          <li>Seguro básico incluso</li>
+          <li>Entrega em Teresina</li>
+          <li>Suporte por WhatsApp</li>
+        </ul>
+        <a href="https://wa.me/5586994056387?text=Olá!%20Tenho%20interesse%20no%20Elétrico%20City%20(Compacto)." class="ev-btn-outline">Quero reservar →</a>
+      </div>
+
+      <div class="ev-car-card ev-featured reveal reveal-delay-2">
+        <span class="ev-car-emoji">🚘</span>
+        <p class="ev-car-name">Sedan Premium</p>
+        <h3 class="ev-car-model">Elétrico Confort</h3>
+        <p class="ev-car-desc">Conforto e tecnologia para viagens longas, reuniões e compromissos especiais.</p>
+        <div class="ev-car-specs">
+          <div class="ev-spec"><span class="ev-spec-val">450km</span><span class="ev-spec-label">Autonomia</span></div>
+          <div class="ev-spec"><span class="ev-spec-val">5</span><span class="ev-spec-label">Lugares</span></div>
+          <div class="ev-spec"><span class="ev-spec-val">Auto</span><span class="ev-spec-label">Câmbio</span></div>
+        </div>
+        <div class="ev-car-price">
+          <span class="amount">R$ 380</span>
+          <span class="period">/dia</span>
+        </div>
+        <ul class="ev-car-features">
+          <li>Carga completa inclusa</li>
+          <li>Seguro completo incluso</li>
+          <li>Entrega e retirada no local</li>
+          <li>Suporte prioritário 24h</li>
+          <li>Rastreamento em tempo real</li>
+        </ul>
+        <a href="https://wa.me/5586994056387?text=Olá!%20Tenho%20interesse%20no%20Elétrico%20Confort%20(Sedan)." class="ev-btn-filled">Garantir meu elétrico →</a>
+      </div>
+
+      <div class="ev-car-card reveal reveal-delay-3">
+        <span class="ev-car-emoji">🚙</span>
+        <p class="ev-car-name">SUV Executivo</p>
+        <h3 class="ev-car-model">Elétrico SUV</h3>
+        <p class="ev-car-desc">Espaço, potência e presença. Ideal para famílias, eventos corporativos e longas distâncias.</p>
+        <div class="ev-car-specs">
+          <div class="ev-spec"><span class="ev-spec-val">500km</span><span class="ev-spec-label">Autonomia</span></div>
+          <div class="ev-spec"><span class="ev-spec-val">7</span><span class="ev-spec-label">Lugares</span></div>
+          <div class="ev-spec"><span class="ev-spec-val">Auto</span><span class="ev-spec-label">Câmbio</span></div>
+        </div>
+        <div class="ev-car-price">
+          <span class="amount">R$ 550</span>
+          <span class="period">/dia</span>
+        </div>
+        <ul class="ev-car-features">
+          <li>Carga completa inclusa</li>
+          <li>Seguro completo incluso</li>
+          <li>Entrega e retirada no local</li>
+          <li>Suporte prioritário 24h</li>
+          <li>Rastreamento em tempo real</li>
+          <li>1 condutor adicional grátis</li>
+        </ul>
+        <a href="https://wa.me/5586994056387?text=Olá!%20Tenho%20interesse%20no%20Elétrico%20SUV." class="ev-btn-outline">Quero reservar →</a>
+      </div>
+
+    </div>
+
+    <!-- BENEFÍCIOS -->
+    <p class="section-tag reveal" style="margin-bottom:1.5rem">Por que elétrico?</p>
+    <div class="ev-benefits-grid">
+      <div class="ev-benefit reveal reveal-delay-1">
+        <span class="ev-benefit-icon">🔋</span>
+        <p class="ev-benefit-title">Carga Inclusa</p>
+        <p class="ev-benefit-desc">Entregamos sempre com bateria 100% carregada. Sem custo extra.</p>
+      </div>
+      <div class="ev-benefit reveal reveal-delay-2">
+        <span class="ev-benefit-icon">🌿</span>
+        <p class="ev-benefit-title">Zero Emissão</p>
+        <p class="ev-benefit-desc">Reduza sua pegada de carbono enquanto dirige com estilo.</p>
+      </div>
+      <div class="ev-benefit reveal reveal-delay-3">
+        <span class="ev-benefit-icon">💰</span>
+        <p class="ev-benefit-title">Economia Real</p>
+        <p class="ev-benefit-desc">Até 80% mais barato que combustível por km rodado.</p>
+      </div>
+      <div class="ev-benefit reveal reveal-delay-4">
+        <span class="ev-benefit-icon">🛡️</span>
+        <p class="ev-benefit-title">Seguro Incluso</p>
+        <p class="ev-benefit-desc">Todos os planos têm seguro contra danos e terceiros.</p>
+      </div>
+      <div class="ev-benefit reveal reveal-delay-1">
+        <span class="ev-benefit-icon">📍</span>
+        <p class="ev-benefit-title">Entrega em Casa</p>
+        <p class="ev-benefit-desc">Levamos e buscamos o carro onde você estiver em Teresina.</p>
+      </div>
+      <div class="ev-benefit reveal reveal-delay-2">
+        <span class="ev-benefit-icon">📱</span>
+        <p class="ev-benefit-title">Suporte 24h</p>
+        <p class="ev-benefit-desc">Atendimento pelo WhatsApp a qualquer hora do dia.</p>
+      </div>
+    </div>
+
+    <!-- CTA FINAL -->
+    <div class="ev-cta-box reveal">
+      <h3>Pronto para dirigir o <em>futuro</em>?</h3>
+      <p>Fale com a gente agora e reserve seu carro elétrico. Disponibilidade limitada em Teresina.</p>
+      <div class="ev-cta-actions">
+        <a href="https://wa.me/5586994056387?text=Olá!%20Quero%20saber%20mais%20sobre%20locação%20de%20carros%20elétricos." class="btn-primary">💬 Reservar pelo WhatsApp</a>
+        <a href="#carros-eletricos" class="btn-secondary">Ver planos ↑</a>
+      </div>
+    </div>
+
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <div class="logo">Volt<span>Up</span></div>
-    <p>© 2026 Volt Up · Locação de Starlink · Teresina – PI</p>
+    <p>© 2026 Volt Up · Starlink & Carros Elétricos · Teresina – PI</p>
   </footer>
 
   <!-- WHATSAPP FLOAT -->
