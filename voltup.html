@@ -1272,10 +1272,14 @@
 
     /* grid de carros */
     .ev-cars-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      display: flex;
+      justify-content: center;
       gap: 1.5rem;
       margin-bottom: 4rem;
+    }
+    .ev-cars-grid .ev-car-card {
+      max-width: 380px;
+      width: 100%;
     }
 
     .ev-car-card {
@@ -1968,54 +1972,6 @@
         <a href="https://wa.me/5586994056387?text=Olá!%20Tenho%20interesse%20no%20Elétrico%20City%20(Compacto)." class="ev-btn-outline">Quero reservar →</a>
       </div>
 
-      <div class="ev-car-card ev-featured reveal reveal-delay-2">
-        <span class="ev-car-emoji">🚘</span>
-        <p class="ev-car-name">Sedan Premium</p>
-        <h3 class="ev-car-model">Elétrico Confort</h3>
-        <p class="ev-car-desc">Conforto e tecnologia para viagens longas, reuniões e compromissos especiais.</p>
-        <div class="ev-car-specs">
-          <div class="ev-spec"><span class="ev-spec-val">450km</span><span class="ev-spec-label">Autonomia</span></div>
-          <div class="ev-spec"><span class="ev-spec-val">5</span><span class="ev-spec-label">Lugares</span></div>
-          <div class="ev-spec"><span class="ev-spec-val">Auto</span><span class="ev-spec-label">Câmbio</span></div>
-        </div>
-        <div class="ev-car-price">
-          <span class="amount">R$ 380</span>
-          <span class="period">/dia</span>
-        </div>
-        <ul class="ev-car-features">
-          <li>Carga completa inclusa</li>
-          <li>Seguro completo incluso</li>
-          <li>Entrega e retirada no local</li>
-          <li>Suporte prioritário 24h</li>
-          <li>Rastreamento em tempo real</li>
-        </ul>
-        <a href="https://wa.me/5586994056387?text=Olá!%20Tenho%20interesse%20no%20Elétrico%20Confort%20(Sedan)." class="ev-btn-filled">Garantir meu elétrico →</a>
-      </div>
-
-      <div class="ev-car-card reveal reveal-delay-3">
-        <span class="ev-car-emoji">🚙</span>
-        <p class="ev-car-name">SUV Executivo</p>
-        <h3 class="ev-car-model">Elétrico SUV</h3>
-        <p class="ev-car-desc">Espaço, potência e presença. Ideal para famílias, eventos corporativos e longas distâncias.</p>
-        <div class="ev-car-specs">
-          <div class="ev-spec"><span class="ev-spec-val">500km</span><span class="ev-spec-label">Autonomia</span></div>
-          <div class="ev-spec"><span class="ev-spec-val">7</span><span class="ev-spec-label">Lugares</span></div>
-          <div class="ev-spec"><span class="ev-spec-val">Auto</span><span class="ev-spec-label">Câmbio</span></div>
-        </div>
-        <div class="ev-car-price">
-          <span class="amount">R$ 550</span>
-          <span class="period">/dia</span>
-        </div>
-        <ul class="ev-car-features">
-          <li>Carga completa inclusa</li>
-          <li>Seguro completo incluso</li>
-          <li>Entrega e retirada no local</li>
-          <li>Suporte prioritário 24h</li>
-          <li>Rastreamento em tempo real</li>
-          <li>1 condutor adicional grátis</li>
-        </ul>
-        <a href="https://wa.me/5586994056387?text=Olá!%20Tenho%20interesse%20no%20Elétrico%20SUV." class="ev-btn-outline">Quero reservar →</a>
-      </div>
 
     </div>
 
