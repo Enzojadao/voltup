@@ -1469,6 +1469,226 @@
     .ev-cta-box p  { color: var(--muted); margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; }
     .ev-cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
+    /* ── FUNIL DE VENDAS — DISPONIBILIDADE ── */
+    #ev-funil {
+      background: var(--dark);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 3rem;
+      border: 1px solid rgba(159,231,13,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    #ev-funil::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(159,231,13,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .funil-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .funil-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+    .funil-live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(239,68,68,0.12);
+      color: #f87171;
+      border: 1px solid rgba(239,68,68,0.25);
+      padding: 0.25rem 0.75rem;
+      border-radius: 99px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .funil-live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #f87171;
+      animation: pulse-red 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-red {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    /* slots de disponibilidade */
+    .funil-slots {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .funil-slot {
+      flex: 1;
+      min-width: 70px;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 0.9rem 0.5rem;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .funil-slot.disponivel {
+      border-color: rgba(159,231,13,0.35);
+      background: rgba(159,231,13,0.06);
+    }
+    .funil-slot.reservado {
+      border-color: rgba(239,68,68,0.2);
+      background: rgba(239,68,68,0.05);
+      opacity: 0.7;
+    }
+    .funil-slot-icon { font-size: 1.4rem; margin-bottom: 0.3rem; display: block; }
+    .funil-slot-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .funil-slot.disponivel .funil-slot-label { color: var(--green); }
+    .funil-slot.reservado  .funil-slot-label { color: #f87171; }
+
+    /* urgência */
+    .funil-urgency {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(251,191,36,0.08);
+      border: 1px solid rgba(251,191,36,0.2);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 2rem;
+      font-size: 0.83rem;
+      color: #fbbf24;
+      font-weight: 600;
+    }
+    .funil-urgency span { flex: 1; }
+
+    /* etapas do funil */
+    .funil-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .funil-steps::before {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: calc(16.5% + 0.4rem);
+      right: calc(16.5% + 0.4rem);
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), rgba(159,231,13,0.3));
+    }
+    @media (max-width: 480px) {
+      .funil-steps { grid-template-columns: 1fr; }
+      .funil-steps::before { display: none; }
+    }
+    .funil-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.5rem;
+    }
+    .funil-step-num {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--black);
+      font-size: 1rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 0 4px var(--dark), 0 0 16px rgba(159,231,13,0.3);
+    }
+    .funil-step-text {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .funil-step-text strong {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 0.15rem;
+    }
+
+    /* CTA do funil */
+    .funil-cta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .funil-cta a.btn-funil {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      background: var(--green);
+      color: var(--black);
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      box-shadow: 0 4px 24px rgba(159,231,13,0.35);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .funil-cta a.btn-funil:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 32px rgba(159,231,13,0.5);
+    }
+    .funil-cta-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      flex: 1;
+      min-width: 140px;
+    }
+    .funil-cta-note strong { color: var(--green); display: block; font-size: 0.9rem; }
+
+    /* contador de visitas */
+    .funil-social-proof {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .funil-proof-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .funil-proof-item strong { color: var(--text); }
+
     /* — Card hover lift mais suave — */
     .plan-card { transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), border-color 0.25s, box-shadow 0.25s; }
     .plan-card:hover { transform: translateY(-6px); }
@@ -1979,6 +2199,75 @@
 
     </div>
 
+    <!-- FUNIL DE VENDAS -->
+    <div id="ev-funil" class="reveal">
+
+      <div class="funil-header">
+        <div class="funil-title">🚗 Disponibilidade — BYD Dolphin Mini</div>
+        <div class="funil-live-badge"><span class="funil-live-dot"></span>Ao vivo</div>
+      </div>
+
+      <!-- Slots visuais -->
+      <div class="funil-slots">
+        <div class="funil-slot disponivel">
+          <span class="funil-slot-icon">🟢</span>
+          <div class="funil-slot-label">Disponível</div>
+        </div>
+        <div class="funil-slot reservado">
+          <span class="funil-slot-icon">🔴</span>
+          <div class="funil-slot-label">Reservado</div>
+        </div>
+        <div class="funil-slot reservado">
+          <span class="funil-slot-icon">🔴</span>
+          <div class="funil-slot-label">Reservado</div>
+        </div>
+        <div class="funil-slot reservado">
+          <span class="funil-slot-icon">🔴</span>
+          <div class="funil-slot-label">Reservado</div>
+        </div>
+      </div>
+
+      <!-- Urgência -->
+      <div class="funil-urgency">
+        ⚡ <span>Apenas <strong>1 unidade disponível</strong> para a próxima semana em Teresina. Reserve agora antes que alguém pegue!</span>
+      </div>
+
+      <!-- Etapas -->
+      <div class="funil-steps">
+        <div class="funil-step">
+          <div class="funil-step-num">1</div>
+          <div class="funil-step-text"><strong>Escolha o período</strong>Semanal ou mensal, como preferir</div>
+        </div>
+        <div class="funil-step">
+          <div class="funil-step-num">2</div>
+          <div class="funil-step-text"><strong>Confirme pelo WhatsApp</strong>Resposta em menos de 5 minutos</div>
+        </div>
+        <div class="funil-step">
+          <div class="funil-step-num">3</div>
+          <div class="funil-step-text"><strong>Receba em casa</strong>Entrega e retirada em Teresina</div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="funil-cta">
+        <a href="https://wa.me/5586994056387?text=Olá!%20Quero%20reservar%20o%20BYD%20Dolphin%20Mini.%20Ainda%20está%20disponível?" class="btn-funil" target="_blank">
+          💬 Garantir minha reserva
+        </a>
+        <div class="funil-cta-note">
+          <strong>Sem taxa de reserva</strong>
+          Confirme agora, pague na retirada
+        </div>
+      </div>
+
+      <!-- Prova social -->
+      <div class="funil-social-proof">
+        <div class="funil-proof-item">👁 <strong id="funil-views">47</strong>&nbsp;pessoas viram isso hoje</div>
+        <div class="funil-proof-item">📅 Última reserva: <strong id="funil-last">há 2h</strong></div>
+        <div class="funil-proof-item">⭐ <strong>4.9/5</strong>&nbsp;de avaliação média</div>
+      </div>
+
+    </div>
+
     <!-- BENEFÍCIOS -->
     <p class="section-tag reveal" style="margin-bottom:1.5rem">Por que elétrico?</p>
     <div class="ev-benefits-grid">
@@ -2338,6 +2627,27 @@
 
     fetchDolar();
     setInterval(fetchDolar, 60_000); // atualiza a cada 60s
+
+    /* ── FUNIL — prova social dinâmica ── */
+    (function() {
+      const viewsEl = document.getElementById('funil-views');
+      const lastEl  = document.getElementById('funil-last');
+      if (!viewsEl || !lastEl) return;
+
+      // Contador de views flutuante (simula tráfego real)
+      let views = 44 + Math.floor(Math.random() * 8);
+      viewsEl.textContent = views;
+      setInterval(() => {
+        if (Math.random() > 0.4) {
+          views += Math.floor(Math.random() * 3) + 1;
+          viewsEl.textContent = views;
+        }
+      }, 18000);
+
+      // "Última reserva" rotativo
+      const tempos = ['há 18min', 'há 45min', 'há 1h', 'há 2h', 'há 3h'];
+      lastEl.textContent = tempos[Math.floor(Math.random() * tempos.length)];
+    })();
 
     /* ── FORMULÁRIO CONTATO ── */
     function handleForm(e) {
