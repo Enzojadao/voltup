@@ -1225,7 +1225,7 @@
 
     /* ══ CARROS ELÉTRICOS ══ */
     #carros-eletricos {
-      background: #080e1a;
+      background: var(--black);
       position: relative;
       overflow: hidden;
     }
@@ -1234,7 +1234,7 @@
       position: absolute;
       top: -200px; right: -200px;
       width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(0,180,255,0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(159,231,13,0.07) 0%, transparent 70%);
       pointer-events: none;
     }
     #carros-eletricos::after {
@@ -1250,7 +1250,7 @@
     .section-divider {
       width: 100%;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(159,231,13,0.3), rgba(0,180,255,0.3), transparent);
+      background: linear-gradient(90deg, transparent, rgba(159,231,13,0.3), transparent);
     }
 
     /* badge novo */
@@ -1258,9 +1258,9 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      background: rgba(0,180,255,0.12);
-      color: #38bdf8;
-      border: 1px solid rgba(0,180,255,0.25);
+      background: rgba(159,231,13,0.12);
+      color: var(--green);
+      border: 1px solid rgba(159,231,13,0.3);
       padding: 0.3rem 0.9rem;
       border-radius: 99px;
       font-size: 0.72rem;
@@ -1279,8 +1279,8 @@
     }
 
     .ev-car-card {
-      background: #0f1828;
-      border: 1px solid rgba(0,180,255,0.1);
+      background: var(--card);
+      border: 1px solid rgba(159,231,13,0.08);
       border-radius: 20px;
       padding: 2rem;
       position: relative;
@@ -1289,12 +1289,12 @@
     }
     .ev-car-card:hover {
       transform: translateY(-6px);
-      border-color: rgba(0,180,255,0.3);
-      box-shadow: 0 8px 40px rgba(0,180,255,0.1);
+      border-color: rgba(159,231,13,0.25);
+      box-shadow: 0 8px 40px rgba(159,231,13,0.08);
     }
     .ev-car-card.ev-featured {
       border-color: rgba(159,231,13,0.5);
-      background: linear-gradient(160deg, #0c1a08 0%, #0f1828 100%);
+      background: linear-gradient(145deg, #1d2a00, #1a1a1a);
       box-shadow: 0 0 0 1px rgba(159,231,13,0.1), 0 8px 48px rgba(159,231,13,0.1);
     }
     .ev-car-card.ev-featured:hover {
@@ -1324,7 +1324,7 @@
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: #38bdf8;
+      color: var(--green);
       margin-bottom: 0.3rem;
     }
     .ev-car-card.ev-featured .ev-car-name { color: var(--green); }
@@ -1409,11 +1409,11 @@
       font-weight: 700;
       font-size: 0.95rem;
       text-decoration: none;
-      border: 1px solid rgba(0,180,255,0.25);
-      color: #38bdf8;
+      border: 1px solid rgba(159,231,13,0.3);
+      color: var(--green);
       transition: border-color 0.2s, background 0.2s, transform 0.15s;
     }
-    .ev-btn-outline:hover { border-color: #38bdf8; background: rgba(0,180,255,0.06); transform: translateY(-2px); }
+    .ev-btn-outline:hover { border-color: var(--green); background: rgba(159,231,13,0.06); transform: translateY(-2px); }
 
     .ev-btn-filled {
       display: block;
@@ -1438,21 +1438,21 @@
       margin-bottom: 3rem;
     }
     .ev-benefit {
-      background: #0f1828;
-      border: 1px solid rgba(0,180,255,0.08);
+      background: var(--card);
+      border: 1px solid rgba(159,231,13,0.08);
       border-radius: 14px;
       padding: 1.4rem 1.2rem;
       text-align: center;
       transition: border-color 0.2s, transform 0.2s;
     }
-    .ev-benefit:hover { border-color: rgba(0,180,255,0.25); transform: translateY(-3px); }
+    .ev-benefit:hover { border-color: rgba(159,231,13,0.25); transform: translateY(-3px); }
     .ev-benefit-icon { font-size: 1.8rem; margin-bottom: 0.6rem; display: block; }
     .ev-benefit-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
     .ev-benefit-desc  { font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
 
     /* cta final */
     .ev-cta-box {
-      background: linear-gradient(135deg, #0c1a08, #0f1828);
+      background: linear-gradient(135deg, #1d2a00, var(--card));
       border: 1px solid rgba(159,231,13,0.2);
       border-radius: 20px;
       padding: 3rem 2rem;
