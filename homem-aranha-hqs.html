@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enciclopédia HQ – Homem-Aranha</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --red:#e23636;
+    --red-dark:#a11f1f;
+    --blue:#1b3fa0;
+    --blue-dark:#0f2870;
+    --black:#0b0b0d;
+    --card:#151519;
+    --card-2:#1c1c22;
+    --text:#eef0f5;
+    --muted:#9a9aa5;
+    --line:rgba(255,255,255,0.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(226,54,54,0.18), transparent 45%),
+      radial-gradient(circle at 85% 10%, rgba(27,63,160,0.22), transparent 45%),
+      var(--black);
+    color:var(--text);
+    line-height:1.6;
+    min-height:100vh;
+  }
+  .webline{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.05;
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0 40px, #fff 40px 41px),
+      repeating-linear-gradient(-45deg, transparent 0 40px, #fff 40px 41px);
+  }
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,11,13,0.9);
+    backdrop-filter:blur(10px);
+    border-bottom:2px solid var(--red);
+  }
+  .nav-inner{
+    max-width:1200px; margin:0 auto; padding:1rem 6%;
+    display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  }
+  .brand{
+    font-family:'Bangers', cursive;
+    font-size:2rem; letter-spacing:1px;
+    color:#fff;
+    -webkit-text-stroke:1.4px var(--black);
+    text-shadow:3px 3px 0 var(--red), 5px 5px 0 var(--blue-dark);
+  }
+  .brand span{color:var(--red);}
+  .nav-links{display:flex; gap:1.2rem; font-size:0.9rem; color:var(--muted); flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); text-decoration:none;}
+  .nav-links a:hover{color:#fff;}
+
+  /* HERO */
+  .hero{
+    max-width:1200px; margin:0 auto; padding:3.5rem 6% 2rem; position:relative; z-index:1;
+  }
+  .hero h1{
+    font-family:'Bangers', cursive;
+    font-size:clamp(2.2rem, 5vw, 3.6rem);
+    letter-spacing:1px;
+    line-height:1.1;
+    background:linear-gradient(180deg,#fff, #cfd6ea);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:linear-gradient(180deg,#ff6a5a, var(--red));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p{max-width:680px; color:var(--muted); margin-top:0.9rem; font-size:1.02rem;}
+  .disclaimer{
+    margin-top:1.2rem; padding:0.9rem 1.1rem;
+    background:var(--card); border:1px solid var(--line); border-left:4px solid var(--blue);
+    border-radius:8px; font-size:0.85rem; color:var(--muted); max-width:760px;
+  }
+  .disclaimer b{color:var(--text);}
+
+  .legal-links{
+    display:flex; gap:0.7rem; flex-wrap:wrap; margin-top:1.4rem;
+  }
+  .legal-btn{
+    display:inline-flex; align-items:center; gap:0.5rem;
+    padding:0.65rem 1.1rem; border-radius:999px;
+    font-size:0.85rem; font-weight:700; text-decoration:none;
+    border:1px solid var(--line); color:var(--text); background:var(--card-2);
+    transition:transform .15s, border-color .15s;
+  }
+  .legal-btn:hover{transform:translateY(-2px); border-color:var(--red);}
+  .legal-btn.primary{background:linear-gradient(135deg,var(--red),var(--red-dark)); border-color:transparent;}
+
+  /* CONTROLS */
+  .controls{
+    max-width:1200px; margin:2rem auto 0; padding:0 6%; position:relative; z-index:1;
+  }
+  .search-row{display:flex; gap:0.8rem; flex-wrap:wrap; align-items:center;}
+  #search{
+    flex:1; min-width:220px;
+    padding:0.85rem 1.1rem; border-radius:10px;
+    background:var(--card); border:1px solid var(--line); color:var(--text); font-size:0.95rem;
+  }
+  #search:focus{outline:none; border-color:var(--red);}
+  .counter{font-size:0.85rem; color:var(--muted); white-space:nowrap;}
+
+  .filters{display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:1rem;}
+  .chip{
+    padding:0.45rem 0.9rem; border-radius:999px; font-size:0.82rem; font-weight:600;
+    background:var(--card); border:1px solid var(--line); color:var(--muted); cursor:pointer;
+    user-select:none; transition:all .15s;
+  }
+  .chip:hover{color:#fff; border-color:var(--muted);}
+  .chip.active{background:linear-gradient(135deg,var(--blue),var(--blue-dark)); color:#fff; border-color:transparent;}
+
+  /* GRID */
+  main{max-width:1200px; margin:0 auto; padding:2rem 6% 5rem; position:relative; z-index:1;}
+  .era-block{margin-bottom:2.6rem;}
+  .era-title{
+    font-family:'Bangers', cursive; letter-spacing:1px; font-size:1.5rem; color:#fff;
+    display:flex; align-items:center; gap:0.8rem; margin-bottom:1rem;
+  }
+  .era-title::after{content:""; flex:1; height:2px; background:linear-gradient(90deg,var(--red),transparent);}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:1.1rem;}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:1.2rem; cursor:pointer; transition:transform .15s, border-color .15s, box-shadow .15s;
+    display:flex; flex-direction:column; gap:0.55rem;
+  }
+  .card:hover{transform:translateY(-4px); border-color:var(--red); box-shadow:0 10px 30px rgba(226,54,54,0.15);}
+  .card-badge{
+    align-self:flex-start;
+    font-size:0.7rem; font-weight:800; letter-spacing:0.5px; text-transform:uppercase;
+    padding:0.25rem 0.6rem; border-radius:6px; color:#fff;
+    background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  }
+  .card h3{font-size:1.05rem; color:#fff; line-height:1.3;}
+  .card .meta{font-size:0.78rem; color:var(--muted);}
+  .card .synopsis{font-size:0.85rem; color:#c7c9d4; flex:1;}
+  .card .footer-row{display:flex; justify-content:space-between; align-items:center; margin-top:0.3rem;}
+  .read-link{
+    font-size:0.78rem; font-weight:700; color:var(--red); text-decoration:none;
+  }
+  .read-link:hover{text-decoration:underline;}
+
+  .empty{text-align:center; padding:3rem 1rem; color:var(--muted);}
+
+  /* MODAL */
+  .overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(3px);
+    display:none; align-items:center; justify-content:center; z-index:200; padding:1.5rem;
+  }
+  .overlay.open{display:flex;}
+  .modal{
+    background:var(--card-2); border:1px solid var(--line); border-radius:16px;
+    max-width:560px; width:100%; padding:2rem; position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,0.5);
+  }
+  .modal-close{
+    position:absolute; top:1rem; right:1rem; width:34px; height:34px; border-radius:50%;
+    background:var(--card); border:1px solid var(--line); color:var(--text); cursor:pointer; font-size:1rem;
+  }
+  .modal .card-badge{margin-bottom:0.8rem;}
+  .modal h2{font-family:'Bangers', cursive; font-size:1.7rem; color:#fff; letter-spacing:0.5px; margin-bottom:0.3rem;}
+  .modal .meta{color:var(--muted); font-size:0.85rem; margin-bottom:1rem;}
+  .modal .synopsis{font-size:0.95rem; color:#d3d5e0; margin-bottom:1.4rem;}
+  .modal-actions{display:flex; gap:0.7rem; flex-wrap:wrap;}
+
+  footer{
+    text-align:center; padding:2.5rem 6% 3rem; color:var(--muted); font-size:0.8rem;
+    border-top:1px solid var(--line); position:relative; z-index:1;
+  }
+
+  @media(max-width:560px){
+    .brand{font-size:1.5rem;}
+    .hero h1{font-size:2rem;}
+  }
+</style>
+</head>
+<body>
+<div class="webline"></div>
+
+<header>
+  <div class="nav-inner">
+    <div class="brand">🕸️ Aranhaverso<span>HQ</span></div>
+    <nav class="nav-links">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#ler-online">Ler online (legal)</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Enciclopédia de <em>HQs</em> do Homem-Aranha</h1>
+  <p>Um catálogo com as principais séries, sagas e edições marcantes do Homem-Aranha, das origens em 1962 até os dias de hoje — organizado por década, com sinopse e ficha técnica de cada uma.</p>
+
+  <div class="disclaimer">
+    <b>Aviso:</b> este site é uma enciclopédia/catálogo informativo. Não hospedamos nem distribuímos scans ou páginas de quadrinhos protegidos por direitos autorais da Marvel. Para ler as HQs na íntegra, use os links oficiais e legais abaixo.
+  </div>
+
+  <div id="ler-online" class="legal-links">
+    <a class="legal-btn primary" href="https://www.marvel.com/unlimited" target="_blank" rel="noopener">📖 Ler online – Marvel Unlimited</a>
+    <a class="legal-btn" href="https://www.amazon.com/comixology" target="_blank" rel="noopener">🛒 Comprar/ler – Comixology</a>
+    <a class="legal-btn" href="https://panini.com.br" target="_blank" rel="noopener">📦 Edições físicas – Panini Brasil</a>
+  </div>
+</section>
+
+<section class="controls" id="catalogo">
+  <div class="search-row">
+    <input id="search" type="text" placeholder="Buscar por título, autor, saga ou personagem..." />
+    <span class="counter" id="counter"></span>
+  </div>
+  <div class="filters" id="filters"></div>
+</section>
+
+<main id="main"></main>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal"></div>
+</div>
+
+<footer>
+  Catálogo não-oficial e sem fins comerciais, feito por fãs. Homem-Aranha e todos os personagens relacionados são marcas registradas da Marvel Entertainment. Leia sempre as HQs pelos canais oficiais.
+</footer>
+
+<script>
+const READ_URL = "https://www.marvel.com/unlimited";
+
+const comics = [
+  // ---- 1960s ----
+  {era:"1960s", title:"Amazing Fantasy #15", year:"1962", authors:"Stan Lee & Steve Ditko", tags:"origem, clássico",
+   synopsis:"A primeira aparição do Homem-Aranha. Peter Parker é picado por uma aranha radioativa, ganha poderes e aprende, com a morte do tio Ben, que 'grandes poderes trazem grandes responsabilidades'."},
+  {era:"1960s", title:"The Amazing Spider-Man #1–38", year:"1963–1966", authors:"Stan Lee & Steve Ditko", tags:"era Ditko, clássico",
+   synopsis:"Início da revista solo. Apresenta o Duende Verde, Dr. Octopus, Kraven e o Abutre, além do triângulo Peter/Betty/Liz e a chegada de Mary Jane."},
+  {era:"1960s", title:"ASM #31–33 – 'If This Be My Destiny'", year:"1965", authors:"Stan Lee & Steve Ditko", tags:"saga clássica",
+   synopsis:"Peter precisa erguer equipamento pesadíssimo para salvar tia May, num dos momentos mais celebrados da era Ditko sobre superação."},
+  {era:"1960s", title:"ASM #39–100", year:"1966–1971", authors:"Stan Lee & John Romita Sr.", tags:"era Romita",
+   synopsis:"Romita Sr. assume a arte, define o visual clássico do herói e introduz Gwen Stacy, Harry Osborn e o Duende Verde revelado como Norman Osborn."},
+
+  // ---- 1970s ----
+  {era:"1970s", title:"ASM #96–98 – Saga das Drogas", year:"1971", authors:"Stan Lee & Gil Kane", tags:"social, sem selo do CCA",
+   synopsis:"Harry Osborn enfrenta vício em drogas. A história foi publicada sem o selo de aprovação do Comics Code por retratar o tema, mudando os padrões da indústria."},
+  {era:"1970s", title:"Marvel Team-Up #1", year:"1972", authors:"Roy Thomas & Ross Andru", tags:"crossover",
+   synopsis:"Início da revista de parcerias, unindo o Homem-Aranha a outros heróis Marvel em aventuras independentes da continuidade principal."},
+  {era:"1970s", title:"ASM #121–122 – 'A Noite em que Gwen Stacy Morreu'", year:"1973", authors:"Gerry Conway & Gil Kane", tags:"saga icônica, tragédia",
+   synopsis:"O Duende Verde mata Gwen Stacy na Ponte George Washington — marco que muitos apontam como o fim da 'Era de Prata' dos quadrinhos."},
+  {era:"1970s", title:"The Spectacular Spider-Man #1", year:"1976", authors:"Gerry Conway & Sal Buscema", tags:"nova série",
+   synopsis:"Segunda revista regular do herói, explorando histórias paralelas à Amazing Spider-Man por quase 30 anos."},
+  {era:"1970s", title:"ASM #252 (preview) / Marvel Team-Up #141", year:"1984", authors:"vários", tags:"traje simbionte",
+   synopsis:"Primeiras aparições do icônico traje preto simbionte, ainda antes de virar Venom."},
+
+  // ---- 1980s ----
+  {era:"1980s", title:"Web of Spider-Man #1", year:"1985", authors:"Louise Simonson & Greg LaRocque", tags:"nova série",
+   synopsis:"Terceira revista mensal do personagem, ampliando o universo de histórias em paralelo às outras duas séries da época."},
+  {era:"1980s", title:"ASM #298–300 – Nascimento do Venom", year:"1988", authors:"David Michelinie & Todd McFarlane", tags:"vilão icônico",
+   synopsis:"Eddie Brock se funde ao simbionte rejeitado por Peter e nasce o Venom, um dos vilões mais populares da franquia."},
+  {era:"1980s", title:"Kraven's Last Hunt", year:"1987", authors:"J.M. DeMatteis & Mike Zeck", tags:"saga aclamada",
+   synopsis:"Considerada uma das melhores histórias do herói: Kraven, o Caçador, enterra Peter vivo e assume sua identidade antes de seu ato final."},
+
+  // ---- 1990s ----
+  {era:"1990s", title:"Spider-Man (vol. 1) #1", year:"1990", authors:"Todd McFarlane", tags:"visual icônico",
+   synopsis:"McFarlane assume roteiro e arte numa nova série que se tornou um marco visual dos anos 90, com maior sucesso de vendas da época."},
+  {era:"1990s", title:"Maximum Carnage", year:"1993", authors:"vários", tags:"evento, crossover",
+   synopsis:"Megaevento de 14 partes em que Homem-Aranha e Venom se unem contra Carnificina e seu grupo de vilões caóticos pela cidade."},
+  {era:"1990s", title:"Clone Saga", year:"1994–1996", authors:"vários", tags:"saga polêmica",
+   synopsis:"Longa e controversa saga que reintroduz o clone de Peter (Ben Reilly) e questiona qual dos dois é o Homem-Aranha original."},
+  {era:"1990s", title:"Spider-Girl #1", year:"1998", authors:"Tom DeFalco & Ron Frenz", tags:"legado, spin-off",
+   synopsis:"Mayday Parker, filha de Peter e MJ num futuro alternativo (MC2), assume o manto como a nova geração do herói."},
+
+  // ---- 2000s ----
+  {era:"2000s", title:"Ultimate Spider-Man #1", year:"2000", authors:"Brian Michael Bendis & Mark Bagley", tags:"reinício, universo Ultimate",
+   synopsis:"Reimaginação moderna da origem do herói para novos leitores, uma das séries mais aclamadas da década."},
+  {era:"2000s", title:"Spider-Man: Blue", year:"2002", authors:"Jeph Loeb & Tim Sale", tags:"nostálgico",
+   synopsis:"Peter relembra, em tom melancólico, seu romance com Gwen Stacy antes da tragédia — uma carta de amor em quadrinhos."},
+  {era:"2000s", title:"ASM (vol. 2) – 'Coming Home'", year:"2001", authors:"J. Michael Straczynski & John Romita Jr.", tags:"nova fase",
+   synopsis:"JMS assume a escrita e introduz Ezekiel e uma explicação mística para os poderes do Homem-Aranha, além do embate com o Morlun."},
+  {era:"2000s", title:"Civil War: Amazing Spider-Man", year:"2006", authors:"J. Michael Straczynski & Ron Garney", tags:"evento, crossover",
+   synopsis:"Peter revela sua identidade secreta ao público ao lado do Capitão América durante o evento Guerra Civil da Marvel."},
+  {era:"2000s", title:"One More Day / Brand New Day", year:"2007–2008", authors:"J.M. Straczynski / Dan Slott e outros", tags:"saga polêmica, reinício",
+   synopsis:"Peter faz um pacto com Mefisto para apagar seu casamento com Mary Jane, reiniciando a mitologia do personagem como solteiro."},
+
+  // ---- 2010s ----
+  {era:"2010s", title:"Spider-Island", year:"2011", authors:"Dan Slott & Humberto Ramos", tags:"evento",
+   synopsis:"Todos os moradores de Nova York ganham poderes aracnídeos temporariamente, num evento caótico centrado em Manhattan."},
+  {era:"2010s", title:"Ultimate Fallout #4", year:"2011", authors:"Brian Michael Bendis & Sara Pichelli", tags:"1ª aparição",
+   synopsis:"Após a morte do Peter Parker Ultimate, Miles Morales assume o manto de Homem-Aranha nesse universo."},
+  {era:"2010s", title:"Superior Spider-Man #1", year:"2013", authors:"Dan Slott & Ryan Stegman", tags:"saga ousada",
+   synopsis:"A mente do Dr. Octopus assume o corpo de Peter Parker e tenta ser um Homem-Aranha 'superior' — uma das reviravoltas mais ousadas do herói."},
+  {era:"2010s", title:"Edge of Spider-Verse #2 (1ª da Spider-Gwen)", year:"2014", authors:"Jason Latour & Robbi Rodriguez", tags:"1ª aparição, evento",
+   synopsis:"Introduz Gwen Stacy como Homem-Aranha em uma Terra alternativa, dando início ao fenômeno Spider-Gwen."},
+  {era:"2010s", title:"Spider-Verse", year:"2014–2015", authors:"Dan Slott & Olivier Coipel", tags:"evento multiverso",
+   synopsis:"Um vilão caça todas as versões do Homem-Aranha pelo multiverso, reunindo dezenas de 'Aranhas' de diferentes realidades."},
+  {era:"2010s", title:"Spider-Man/Deadpool #1", year:"2016", authors:"Joe Kelly & Ed McGuinness", tags:"buddy comic",
+   synopsis:"Parceria cômica e inusitada entre o Homem-Aranha e o Mercenário Tagarela, uma das séries mais divertidas da década."},
+
+  // ---- 2020s ----
+  {era:"2020s", title:"The Amazing Spider-Man (vol. 6)", year:"2022–presente", authors:"Zeb Wells & John Romita Jr.", tags:"atual",
+   synopsis:"Fase recente da série principal, revisitando o pacto de 'One More Day' e trazendo consequências duradouras para Peter e MJ."},
+  {era:"2020s", title:"Miles Morales: Spider-Man", year:"2018–presente", authors:"Saladin Ahmed e outros", tags:"legado, atual",
+   synopsis:"Série contínua do Homem-Aranha do Brooklyn, já incorporado ao universo principal da Marvel (Terra-616)."},
+  {era:"2020s", title:"Spider-Boy #1", year:"2023", authors:"Dan Slott & Paco Medina", tags:"novo herói",
+   synopsis:"Bailey Briggs, um clone criado a partir de DNA do Homem-Aranha, estreia como novo herói adolescente ligado ao legado aracnídeo."},
+];
+
+const eraOrder = ["1960s","1970s","1980s","1990s","2000s","2010s","2020s"];
+
+function readLink(title){
+  return `${READ_URL}`;
+}
+
+function renderFilters(){
+  const box = document.getElementById('filters');
+  box.innerHTML = '<div class="chip active" data-era="all">Todas as décadas</div>' +
+    eraOrder.map(e => `<div class="chip" data-era="${e}">${e}</div>`).join('');
+  box.querySelectorAll('.chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      box.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      state.era = chip.dataset.era;
+      render();
+    });
+  });
+}
+
+const state = {era:'all', q:''};
+
+function matches(c){
+  const eraOk = state.era === 'all' || c.era === state.era;
+  const q = state.q.trim().toLowerCase();
+  const qOk = !q || [c.title,c.authors,c.tags,c.synopsis,c.year].join(' ').toLowerCase().includes(q);
+  return eraOk && qOk;
+}
+
+function render(){
+  const main = document.getElementById('main');
+  const filtered = comics.filter(matches);
+  document.getElementById('counter').textContent = `${filtered.length} de ${comics.length} edições/sagas`;
+
+  if(!filtered.length){
+    main.innerHTML = '<div class="empty">Nenhum resultado encontrado. Tente outra busca 🕷️</div>';
+    return;
+  }
+
+  const byEra = {};
+  filtered.forEach(c => { (byEra[c.era] ||= []).push(c); });
+
+  main.innerHTML = eraOrder
+    .filter(e => byEra[e])
+    .map(e => `
+      <div class="era-block">
+        <div class="era-title">${e}</div>
+        <div class="grid">
+          ${byEra[e].map(c => cardHtml(c)).join('')}
+        </div>
+      </div>
+    `).join('');
+
+  main.querySelectorAll('.card').forEach(el=>{
+    el.addEventListener('click', ()=> openModal(comics[+el.dataset.idx]));
+  });
+}
+
+function cardHtml(c){
+  const idx = comics.indexOf(c);
+  return `
+    <div class="card" data-idx="${idx}">
+      <span class="card-badge">${c.year}</span>
+      <h3>${c.title}</h3>
+      <div class="meta">${c.authors}</div>
+      <div class="synopsis">${c.synopsis}</div>
+      <div class="footer-row">
+        <span class="meta">${c.tags}</span>
+        <a class="read-link" href="${readLink(c.title)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Ler online →</a>
+      </div>
+    </div>
+  `;
+}
+
+function openModal(c){
+  const modal = document.getElementById('modal');
+  modal.innerHTML = `
+    <button class="modal-close" id="closeModal">✕</button>
+    <span class="card-badge">${c.era} · ${c.year}</span>
+    <h2>${c.title}</h2>
+    <div class="meta">${c.authors} — ${c.tags}</div>
+    <p class="synopsis">${c.synopsis}</p>
+    <div class="modal-actions">
+      <a class="legal-btn primary" href="${readLink(c.title)}" target="_blank" rel="noopener">📖 Ler online – Marvel Unlimited</a>
+      <a class="legal-btn" href="https://panini.com.br" target="_blank" rel="noopener">📦 Comprar edição – Panini</a>
+    </div>
+  `;
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('closeModal').addEventListener('click', closeModal);
+}
+function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
+document.getElementById('overlay').addEventListener('click', e=>{
+  if(e.target.id === 'overlay') closeModal();
+});
+
+document.getElementById('search').addEventListener('input', e=>{
+  state.q = e.target.value;
+  render();
+});
+
+renderFilters();
+render();
+</script>
+</body>
+</html>
